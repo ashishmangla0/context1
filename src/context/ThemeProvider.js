@@ -3,21 +3,21 @@ import React, { createContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 const ThemeProvider = (props) => {
+    const getThemeValueInitail = JSON.parse(localStorage.getItem("darkTheme")) ;
   const { children } = props;
-
-  const [themeDark, setThemeDark] = useState(false);
+  const [themeDark, setThemeDark] = useState(getThemeValueInitail || false);
 
   const handleThemeDark = () => {
     setThemeDark(!themeDark);
   };
-
+  
+  localStorage.setItem("darkTheme", themeDark);
+  
   const ThemeProviderValues = {
     themeDark,
     handleThemeDark,
   };
-  useEffect(() => {
-    localStorage.setItem("darkTheme", themeDark);
-  }, [themeDark]);
+
 
   useEffect(() => {
     const getThemeValue = JSON.parse(localStorage.getItem("darkTheme")) ;
